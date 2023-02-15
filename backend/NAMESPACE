@@ -1,0 +1,4 @@
+export(runSensitivityAnalysis)
+export(escalcWrapper)
+export(runMetaAnalysis)
+export(calculateEffectSize)

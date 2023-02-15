@@ -1,0 +1,103 @@
+[{
+"author": "Group stats",
+"year": "1",
+"meanExp": 4.0,
+"sdExp": 2.0,
+"nExp": 50,
+"meanCtrl": 5.0,
+"sdCtrl": 1.0,
+"nCtrl": 50,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "Diff sd",
+"year": "2",
+"meanDiff": -1.0,
+"sdDiff": 1.581,
+"N": 100,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "Diff se",
+"year": "3",
+"meanDiff": -1.0,
+"stdErrMeanDiff": 0.3162278,
+"N": 100,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "P value",
+"year": "4",
+"meanExp": 4.0,
+"nExp": 50,
+"meanCtrl": 5.0,
+"nCtrl": 50,
+"pValue": 0.00208,
+"nTails": 2,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "T value",
+"year": "5",
+"meanDiff": -1.0,
+"N": 100,
+"tValue": -3.162277,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "F value",
+"year": "6",
+"meanDiff": -1.0,
+"N": 100,
+"fValue": 9.999996,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "CI",
+"year": "7",
+"meanDiff": -1.0,
+"N": 100,
+"lowerBoundCI": -1.627544,
+"upperBoundCI": -0.3724562,
+"confLevelCI": 95,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "Cor repeated measures",
+"year": "8",
+"meanExp": 4.0,
+"sdExp": 2.0,
+"nExp": 50,
+"meanCtrl": 5.0,
+"sdCtrl": 1.0,
+"nCtrl": 50,
+"r": 0.5,
+"included": true,
+"outcomeType": "continuous"
+},
+{
+"author": "Counts",
+"year": "9",
+"countExp": 40,
+"nExp": 50,
+"countCtrl": 30,
+"nCtrl": 50,
+"included": true,
+"outcomeType": "dichotomous"
+},
+{
+"author": "Proportions",
+"year": "10",
+"pExp": 0.8,
+"pCtrl": 0.6,
+"N": 100,
+"included": true,
+"outcomeType": "dichotomous"
+}]

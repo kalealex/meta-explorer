@@ -1,0 +1,86 @@
+  <div class="toolbar">
+    <button class="cursor mx-2" type="button" title="Cursor" data-tooltype="cursor">➚</button>
+    <div class="spacer"></div>
+    <input type="checkbox" title="Hide rectangle" id="rectangleAnnotationCheckbox" checked>
+    <button class="rectangle ml-n1 mr-2" type="button" title="Rectangle" data-tooltype="area">&nbsp;</button>
+    
+    <input type="checkbox" title="Hide highlight" id="highlightAnnotationCheckbox" checked>
+    <button class="pdfHighlight ml-n1 mr-2" type="button" title="Highlight" data-tooltype="highlight">&nbsp;</button>
+    
+    <input type="checkbox" title="Hide underline" id="underlineAnnotationCheckbox" checked>
+    <button class="strikeout fa fa-underline ml-n1 mr-2" type="button" title="Underline" data-tooltype="strikeout"></button>
+    <div class="spacer"></div>
+    
+    <input type="checkbox" title="Hide comment" id="commentAnnotationCheckbox" checked>
+    <button class="comment fa fa-comment ml-n1 mr-1" type="button" title="Comment" data-tooltype="point"></button>
+    
+    <input type="checkbox" title="Hide link" id="linkAnnotationCheckbox" checked>
+    <button class="link fa fa-link ml-n1 mr-1" type="button" title="Link" data-tooltype="link"></button>
+    
+    <input type="checkbox" title="Hide bookmark" id="bookmarkAnnotationCheckbox" checked>
+    <button class="bookmark fa fa-bookmark ml-n1 mr-1 type="button" title="Bookmark" data-tooltype="bookmark"></button>
+    <div class="spacer"></div>
+    
+    <button class="undo fa fa-undo" title="Undo last creation"> Undo</button>
+    <div class="spacer"></div>
+    <button class="clear fa fa-remove" title="Clear All Annotations"> Clear All</button>
+
+    <div class="float-right">
+    <select class="scale form-control form-control-sm" title="Zoom">
+      <option value=".5">50%</option>
+      <option value="1">100%</option>
+      <option value="1.33">133%</option>
+      <option value="1.5">150%</option>
+      <option value="2">200%</option>
+    </select>
+    </div>
+  </div>
+  
+  <div class="alert alert-info alert-dismissible" id="pdfInfo" role="alert">
+     <button type="button" class="close" data-dismiss="alert">&times;</button>
+     <span></span>
+  </div>
+
+  <div id="content-wrapper">
+    <div id="viewer" class="pdfViewer"></div>
+  </div>
+  <div id="annotation-wrapper">
+    <h5></h5><i class="fa fa-times" aria-hidden="true" id="hideAnnotation"></i>
+    <div class="annotation-list">
+      <div class="annotation-list-container"></div>
+    </div>
+  </div>
+
+<!-- Bookmark Modal -->
+<div class="modal fade" id="bookmarkModalDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Bookmark</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="bookmarkName" class="col-form-label">Bookmark name:</label>
+            <div class="form-group d-flex">
+              <input type="text" class="form-control mr-3" id="bookmarkName" autofocus>
+              <button class="btn btn-primary" id="addBookmarkButton" disabled>Add</button>
+            </div>
+          </div> 
+          <div class="form-group d-flex">
+            <ul class="list-group" id="bookmarkList">
+            </ul>
+            <button class="btn btn-dark mb-auto ml-3" id="deleteBookmarkButton" disabled>Delete</button>
+          </div> 
+      </div> <!-- end of modal-body-->
+    </div> <!-- end of modal-content-->
+  </div> <!-- end of modal-dialog-->
+</div> <!-- end of modal -->
+
+  <script src="pdfjs-2.3.0-dist/build/pdf.js"></script>
+  <script src="pdfjs-2.3.0-dist/web/pdf_viewer.js"></script>
+  <script src="js/pdf_init.js"></script>
+
+

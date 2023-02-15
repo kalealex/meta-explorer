@@ -1,0 +1,210 @@
+<script src="js/extraction.js"></script>
+
+<div id="evidenceExtraction">
+  <h3 class="mb-4">Questions for Evidence Extraction</h3>
+
+  <i><p class="mb-4">This form guides the process of extracting evidence from written reports of research findings for 
+  <a href="https://en.wikipedia.org/wiki/Meta-analysis">meta-analysis</a>.  It has two parts. </p></i>
+
+  <h4 class="mb-3" id="studyLevelInformation">Study-Level Information</h4>
+  <i><p>In this section, you will document information about the written report you are coding. <b>Please feel free to use shorthand or copy and paste blocks of text from the article itself.</b></i>
+  <div class="group">
+    <h5 class="mb-3" id="studyIdentity">Study Identity</h5>
+    <i class="ml-2 fa fa-lg fa-sticky-note-o" title="General Notes" data-toggle="collapse" data-target="#studyIdentityNotes" aria-expanded="false" aria-controls="studyIdentityNotes"></i>
+    <textarea class="collapse form-control rounded-2 notes" id="studyIdentityNotes" rows="3" placeholder="General notes on Study Identity go here"></textarea>
+    <div class="mb-3">
+    <label for="title">1. What is the title of the report?</label>
+    <input id="title" type="text" class="form-control input-md">
+    </div>
+    <div class="mb-3">
+    <label for="authors">2. List the authors of the study.</label>
+    <input id="authors" type="text" class="form-control input-md">
+    </div>
+    <label for="year">3. What year was the study published?</label>
+    <input id="year" type="text" class="form-control input-md">
+  </div>
+  
+  <div class="group">
+    <h5 class="mb-3" id="studyContext">Study Context</h5>
+    <i class="ml-2 fa fa-lg fa-sticky-note-o" title="General Notes" data-toggle="collapse" data-target="#studyContextNotes" aria-expanded="false" aria-controls="studyContextNotes"></i>
+    <textarea class="collapse form-control rounded-2 notes" id="studyContextNotes" rows="3" placeholder="General notes on Study Context go here"></textarea>
+    <i><p>Please use the following items to document the study design and the context of data collection, 
+    paying special attention to information that might impact how you interpret the study results.</p></i>
+    <div id="studyContext_1_extraction">
+    <label for="studyType">1. What kind of study is this?
+       <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="studyContext_1_manual"/>
+       <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Selection Bias 1" target="selectionBias_1_assessment"/></label>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="experimentalType" id="experimentalType" name="studyType">
+         <label class="form-check-label" for="experimentalType">Experimental (i.e., participants randomly assigned to groups)</label>
+       </div>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="observationalType" id="observationalType" name="studyType">
+         <label class="form-check-label" for="observationalType">Observational (i.e., participants' behavior was observed without intervention)</label>
+         <div id="observationalTypeAlert" class="alert alert-warning alert-dismissible" role="alert">Proceed with caution. Observational studies do not use random assignment of participants to the intervention and control conditions. 
+           This means that this study has a high risk of biased results. If you decide to include this study in your analysis, 
+           it will be very important that you rule out possible <a href="https://en.wikipedia.org/wiki/Confounding">confounding.</a></div>
+       </div>
+       <div class="form-check mb-3">
+         <input class="form-check-input" type="radio" value="otherType" id="otherType" name="studyType">
+         <label class="form-check-label" for="otherType">Other kind of study
+         </label>
+         <div class="row mt-3" id="otherTypePanel">
+           <div class="col-md-3"><label for="otherTypeName">Name:</label></div>
+           <div class="col-md-9"><input type="text" id="otherTypeName" class="custom-input-text"></div>
+           <div class="col-md-3"><label for="otherTypeDescription">Description:</label></div>
+           <div class="col-md-9"><input type="text" id="otherTypeDescription" class="custom-input-text"></div>
+         </div>
+       </div>
+    </div>
+    <br>
+    <div id="observationalTypePanel">
+      <label>2. Did the study use a control group condition to establish a baseline measurement of the outcome without intervention?</label>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="observationalStudyUseControlGroup" id="observationalStudyUseControlGroup" name="useControlGroup">
+        <label class="form-check-label" for="observationalStudyUseControlGroup">Yes</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="observationalStudyNotUseControlGroup" id="observationalStudyNotUseControlGroup" name="useControlGroup">
+        <label class="form-check-label" for="observationalStudyNotUseControlGroup">No</label>
+        </div>
+        <div class="alert alert-warning alert-dismissible" id="noControlGroupAlert" role="alert">
+          You've indicated that this study did not compare the intervention of interest to a control condition. This means you will not be able to include this study in a meta-analysis because the effect sizes that are combined in meta-analysis are relative measurements of the impact of an intervention versus baseline. It may still be useful for you to consider this study in your review. However, note that the lack of a control condition often signals that a study is poorly designed.
+        </div>
+      <!--<label class="mt-1">The groups of interest for the study are defined based on: </label>
+      <div class="subgroup">
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="conditionBased" id="conditionBased" name="groupOfInterest">
+        <label class="form-check-label" for="conditionBased">Exposure to the condition of interest (i.e., cohort study)</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="outcomeBased" id="outcomeBased" name="groupOfInterest">
+        <label class="form-check-label" for="outcomeBased">Exposure to the outcome of interest (i.e., case-control study)</label>
+        </div>
+      </div>-->
+    </div>
+    <br>
+    <div id="studyContext_confounding_extraction">
+    <label>3. In order to estimate the causal effect of intervention, studies must somehow correct for the influence of <a href="https://en.wikipedia.org/wiki/Confounding">confounding</a> variables. Which of the following ways did the study adjust for confounding?</label>
+         <div class="form-check">
+         <input class="form-check-input" type="checkbox" value="includedAsCovariatesInStatModel" id="includedAsCovariatesInStatModel" name="adjustConfounding">
+         <label class="form-check-label" for="includedAsCovariatesInStatModel">Confounding variables were <a href="https://stats.stackexchange.com/questions/3944/explain-model-adjustment-in-plain-english">included as covariates</a> in statistical models.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="checkbox" value="matchedOnConfoundingVariables" id="matchedOnConfoundingVariables" name="adjustConfounding">
+         <label class="form-check-label" for="matchedOnConfoundingVariables">Intervention and control groups were <a href="https://www.alleydog.com/glossary/definition.php?term=Matched+Group+Design">matched</a> on confounding variables.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="checkbox" value="randomAssignment" id="randomAssignment" name="adjustConfounding">
+         <label class="form-check-label" for="randomAssignment">Random assignment to intervention and control groups.</label>
+         <div id="randomAssignmentPanel">
+          <label class="mt-1">What kind of randomization procedure did the study authors use?</label>
+          <div class="subgroup">
+            <div class="form-check">
+            <input class="form-check-input" type="radio" value="individualRandomization" name="randomization">
+            <label class="form-check-label" for="individualRandomization">Individual randomization (i.e., participants were randomly assigned).</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" value="clusterRandomization" name="randomization">
+            <label class="form-check-label" for="clusterRandomization">Cluster randomization (i.e., entire groups of participants were randomly assigned).</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" value="somethingElse" name="randomization">
+            <label class="form-check-label" for="somethingElse">Something more complicated.</label>
+            <div class="alert alert-warning alert-dismissible" id="randomizationAlert" role="alert">At this time, CKM does not support randomization procedures other than those listed above.</div>
+            </div>
+          </div> <!-- end of subgroup-->
+          </div> <!-- end of randomAssignmentPanel-->
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="checkbox" value="nothingForConfounding" id="nothingForConfounding" name="adjustConfounding">
+         <label class="form-check-label" for="nothingForConfounding">Nothing was done to correct for confounding.</label>
+         </div>
+         <div class="alert alert-warning alert-dismissible" id="nothingForConfoundingAlert" role="alert">
+           You've indicated that this study did adjust the effect of intervention for the influence of confounding variables. This means that although this study may represent data that is relevant to your research question, it does not meet standards to be considered as evidence in a meta-analysis. It may still be useful for you to consider this study in your review. However, note that the effect size estimate in this study is unlikely to be an unbiased measure of the intervention effect.
+         </div>
+    </div>
+    <br>
+    <div id="studyContext_setting_extraction">
+    <label for="setting">4. What was the study setting?
+       <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="studyContext_setting_manual"></i>
+       <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Applicability 1" target="applicability_1_assessment"></i></label>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="controlledSetting" id="controlledSetting" name="studySetting">
+         <label class="form-check-label" for="controlledSetting">Controlled (e.g., clinic, laboratory)</label>
+       </div>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="naturalisticSetting" id="naturalisticSetting" name="studySetting">
+         <label class="form-check-label" for="naturalisticSetting">Naturalistic (e.g., home, school, work)</label>
+       </div>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="crowdsourcedSetting" id="crowdsourcedSetting" name="studySetting">
+         <label class="form-check-label" for="crowdsourcedSetting">Crowdsourced (e.g., webpage)</label>
+       </div>
+       <div class="form-check">
+         <input class="form-check-input" type="radio" value="otherSetting" id="otherSetting" name="studySetting">
+         <label class="form-check-label" for="otherSetting">Other setting</label>
+         <div class="row mt-3" id="otherSettingPanel">
+           <div class="col-md-2"><label for="otherSettingName">Name:</label></div>
+           <div class="col-md-10"><input type="text" id="otherSettingName" class="custom-input-text"></div>
+           <div class="col-md-2"><label for="otherSettingDescription">Description:</label></div>
+           <div class="col-md-10">
+            <div class="input-group">
+              <input type="text" list="otherSettingDescriptions" id="otherSettingDescription" class="custom-input-text" autocomplete="off">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" id="otherSettingDescriptions"></div>
+              </div>
+            </div> 
+           </div>
+         </div>
+       </div>
+  </div>
+  </div>
+  <div class="group">
+    <h5 class="mb-3" id="participants">Participants</h5>
+    <i class="ml-2 fa fa-lg fa-sticky-note-o" title="General Notes" data-toggle="collapse" data-target="#participantsNotes" aria-expanded="false" aria-controls="participantsNotes"></i>
+    <textarea class="collapse form-control rounded-2 notes" id="participantsNotes" rows="3" placeholder="General notes on Participants go here"></textarea>
+    <i><label class="mb-3"><p>Please use the following items to describe participants in the study and how they were <a href="https://en.wikipedia.org/wiki/Selection_bias">selected</a>.</label></i>
+    <br>
+    <div id="participants_1_extraction">
+    <label class="mt-3">1. Briefly describe the process used to recruit participants for the study.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="participants_1_manual"></i></label>
+    <textarea class="form-control rounded-0" id="recruitParticipants" rows="10"></textarea></div>
+    
+    <div id="participants_2_extraction">
+    <label class="my-3">2. List any inclusion or exclusion criteria that were used to filter out participants in the study.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="participants_2_manual"></i>
+    <i class="fa fa-lg fa-list-alt" id="participants_q2" title="Quality Assessment: Selection Bias 2" target="selectionBias_2_assessment"></i></label>
+    <textarea class="form-control rounded-0" id="criteriaParticipants" rows="10"></textarea></div>
+    
+    <div id="participants_3_extraction">
+    <label class="my-3">3. Briefly describe the <b>final sample of participants</b> after the recruitment and exclusion processes in terms of relevant characteristics (e.g., demographics, occupation, health status). These are the people whose data are reflected in the results of the study.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="participants_3_manual"></i>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Measurement Issues 1" target="measurementIssues_1_assessment"></i>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Applicability 2" target="applicability_2_assessment"></i></label>
+    </label>
+    <textarea class="form-control rounded-0" id="sampleOfParticipants" rows="10"></textarea></div>
+    
+  </div>
+  
+  <h4 class="mt-4 mb-3" id="resultLevelInformation">Result-Level Information</h4>
+  <i><p>In this section, you will document information about each estimate of the effect of interest in the written report you are coding. 
+  Please fill out the questions in this section for each reported result you would like to include in your meta-analysis. 
+  </i>
+  <p><span style="color:red">Note:</span> Be careful not to create duplicate entries if the same results are reported in separate written reports.</p>
+  <div for="numOfResults"><p>How many results from this written report would you like to extract for meta-analysis?
+  <select id="numOfResults" name="numOfResults">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select></div>
+  <ul class="nav nav-pills" id="resultsNav"></ul>
+  <div id="results"></div>
+</div>
+  
+<div id="evidenceQualityAssessment"></div>
+<div id="codingManual"></div>
+

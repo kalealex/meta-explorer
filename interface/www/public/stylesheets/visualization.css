@@ -1,0 +1,159 @@
+/* plots */
+.container {
+  padding: 10px;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.no-effect-line {
+  fill: none;
+  stroke: rgb(197, 197, 197);
+  stroke-width: 1.5px;
+  shape-rendering: crispEdges;
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  height: 100%; 
+  background-color: rgba(0,0,0,0);
+} 
+
+/* table related */
+th, td:not(.chart) {
+  vertical-align: middle !important;
+  padding: 5px !important;
+}
+th.center, td.center, th.chart { 
+  text-align: center; 
+} 
+th.num, td.num { 
+  text-align: right;
+}
+tr:last-child td.chart {
+  padding: 5px 0 0 0;
+}
+tr:not(:last-child) td.chart {
+  padding: 0; 
+} 
+tr td.chart {
+  min-width: 275px;
+  max-width: 275px;
+  width: 275px;
+  vertical-align: bottom;
+} 
+td.chart svg {
+  overflow: visible;
+}
+
+tr.off {
+  background-color: #f7f7f9;
+  font-style: italic;
+  opacity: 0.5;
+} 
+
+tr.off td {
+  padding: 0 0.25rem !important;
+}
+
+tr.off td:not(.study):not(.include) {
+  opacity: 0;
+}
+tr.off svg {
+  display: none;
+}
+
+
+div.tooltip {
+  color: black;
+  position: absolute;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-family: Futura;
+  font: 12px sans-serif ;
+  border: none; /* 1px solid lightgray; */
+  border-radius: 8px;
+  pointer-events: none;
+  background: lightblue;
+}
+
+.selected {
+  fill: lightblue;
+}
+
+.buttonContainer {
+  text-align: right;
+  /* overflow: hidden; */
+}
+
+.plotLabel {
+  text-align: left;
+}
+
+.buttonPanel {
+  float: right;
+  /* margin: 66px 2px 10px 10px */
+  margin: auto 0 auto auto;
+}
+
+.buttonPanel .btn {
+  margin: 0 0 10px 10px;
+}
+
+.plot {
+  width: 100%;
+}
+
+/* .buttonSidebar {
+  margin: 66px 5px 5px 10px;
+} */
+
+
+.userInfo {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.plotContainer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.preloader {
+  margin: auto;
+  /* position: fixed; */
+  width: 64px;
+  height: 64px;
+  z-index: 9999;
+  top: 30%;
+  left:50%;
+  background: url(..\\images\\preloader.gif) center no-repeat #fff;
+}
+
+.btn-styled {
+  font-size: 5px;
+  margin: 8px 0px;
+  padding: 0 10px;
+  line-height: 2;
+  white-space:normal !important;
+  word-wrap: normal;
+  width: 100%;
+}
+.btn-styled.selected {
+  font-weight: bold;
+}
+
+.fa {
+  color: #343a40;
+}
+.fa:hover{
+  cursor: pointer;
+  color: black;
+}
+
+    

@@ -1,0 +1,13 @@
+[
+  {
+    "origin": ["http://localhost:5000", 
+      "https://evidence-extraction-544ea.firebaseapp.com", 
+      "https://evidence-extraction-demo.web.app", 
+      "https://evidence-extraction-test.web.app", 
+      "https://evidence-extraction-multiple.web.app",
+      "https://evidence-extraction-eval.web.app"
+    ],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CKM</title>
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <link rel="stylesheet" href="stylesheets/research-topics.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css">
+
+  <script src="js/library/jquery-3.4.1.min.js"></script>
+  <script src="js/library/popper-1.14.7.min.js"></script>
+  <script src="js/library/bootstrap-4.3.1.min.js"></script>
+  <script src="js/library/bootstrap-table-1.15.4.min.js"></script>
+
+  <script src="/__/firebase/7.2.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-storage.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/research-topics.js"></script>
+  <script>
+
+    function initialize() {
+      if (demoVersion) {
+        handleSignInAnonymously(function () {
+          initForDemoVersion();
+          $(".view-container").removeClass('block');
+          loadUserData();
+          updateDemoWidgets(false);
+        });
+      } else {
+        // Listening for auth state changes.
+        hideDemoWidgets();
+        firebase.auth().onAuthStateChanged(function (user) {
+          updateUserInfo(user);
+          if (user && !user.isAnonymous) {
+            $(".view-container").removeClass('block');
+            loadUserData();
+          } else {
+            $(".view-container").addClass('block');
+            $(".preloader").fadeOut();
+          }
+        });
+
+        document.getElementById('sign-in-out').addEventListener('click', toggleSignIn, false);
+      }
+    }
+
+    function loadUserData() {
+      if (authCurrentUser()) {
+        var userRef = getCurrentUserRef();
+        if (userRef) {
+          userRef.collection("topics").get().then(function (topics) {
+            displayData(topics.docs);
+            $(".preloader").fadeOut();
+          });
+        }
+      }
+    }
+
+
+    window.onload = loadAndInit;
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="top"></div>
+    <div class="preloader"></div>
+
+    <div class="view-container">
+      <div id="research-topic-list" class="py-3"></div>
+      <button type="button" class="btn btn-outline-primary mt-4" id="AddTopicBtn" data-toggle="modal"
+        data-target="#createTopicModal">Add a New Topic</button>
+    </div>
+
+  </div>
+
+  <div id="createTopicModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Research Topic</h5>
+        </div>
+        <div class="modal-body">
+          <input type="text" style="width: 100%" placeholder="Research Topic"></input>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" disabled>Create</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="createQuestionModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Define research question</h5>
+        </div>
+        <div class="modal-body">
+          <p class="ml-2"><label for="interventionQuestion">1. What intervention are you interested in measuring the
+              effect of?</label>
+            <input id="interventionQuestion" type="text" class="form-control input-md">
+
+          <p class="ml-2"><label for="outcomeQuestion">2. What outcome will you look at to measure the impact of the
+              intervention?</label>
+            <input id="outcomeQuestion" type="text" class="form-control input-md">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" disabled>Create</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

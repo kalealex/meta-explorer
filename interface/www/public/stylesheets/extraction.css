@@ -1,0 +1,251 @@
+html { min-height: 100%; }
+body { font-family: arial, sans-serif; padding: 0; margin: 0; }
+
+#container { display: flex; flex-direction: row; }
+
+html,
+body,
+#container {
+  height: 100%;
+  overflow: hidden; 
+}
+
+#left, #right { 
+  position: relative; 
+}
+
+.gutter.gutter-horizontal {
+  cursor: col-resize;
+  background-color: lightgray;
+}
+
+#pdfFilePanel, #rightPanel {
+  position: absolute;
+  width: 100%;
+  height: 99%; 
+}
+
+#extractionForm {
+  position: absolute;
+  top: calc(var(--top-height) * 2);
+  left: 0;
+  right: 0; 
+  bottom: 0;
+  overflow: auto; 
+  padding: 12px; 
+  margin-right: 1px;
+}
+
+.form-check {
+  padding-bottom: 0.25em;
+}
+
+.group {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-width: .2rem;
+  border: solid #f8f9fa;
+}
+
+.subgroup {
+  margin-left: 1.5rem;
+}
+
+#reviewerName {
+  width: 60%;
+}
+
+#year {
+  width: 40%;
+}
+
+#navigation {
+  margin-bottom: 10px;
+}
+
+#evidenceExtractionDropdown{
+  width: 450px;
+  padding: 5px;
+}
+
+#codingManualDropdown {
+  width: 200px;
+}
+
+#navigationTop .navbar {
+  height: var(--top-height);
+}
+
+#navigationTop .dropdown-item:hover {
+  background: none;
+  text-decoration: underline;
+}
+#navigationTop .dropdown-item:focus {
+  color: #212529;
+}
+
+h5 {
+  display: inline-block;
+}
+
+.fa {
+  color: gray;
+}
+.fa:hover{
+  cursor: pointer;
+  color: #343a40;
+}
+
+.fa-question-circle {
+  color:#454545;
+}
+.fa-question-circle:hover {
+  color:#000000 !important;
+}
+
+.fa-list-alt.complete:after,
+.fa-pencil-square.complete:after {
+ color:green;
+ content: '\2713';
+ margin: 0 2px 10px;
+}
+
+
+.collapse {
+  background-color: #eee;
+  border-radius: .25rem;
+}
+
+.codingManualDiv {
+  padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.fa-sticky-note-o {
+  color: #ffe168;
+}
+.fa-sticky-note-o:hover {
+  color: lightgray;
+  background: #ffe168;
+}
+.notes {
+  border-color: #ffe168 !important;
+  overflow: auto;
+  resize: none
+}
+.notes:focus {
+  border-color: #ffe168 !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+#timePointWidgetList,
+#groupingFactorWidgetList {
+  width: 100%;
+}
+.timePointWidget, 
+.groupingFactorWidget {
+  display: block;
+  width:100%;
+}
+.groupingFactorWidget {
+  padding: 10px;
+  border: 2px solid #f8f9fa;
+  border-radius: 0.25em;
+  margin: 5px;
+}
+.timePointWidget label,
+.timePointWidget input,
+.groupingFactorWidget label,
+.groupingFactorWidget input {
+  display: inline;
+  margin-right:10px;
+}
+.timePointWidget input,
+.groupingFactor,
+.groupingFactorLevel {
+  width: 200px !important;
+}
+.levels .close {
+  font-size: 1.2em;
+}
+.timePointWidget .deleteTimePointWidget,
+.groupingFactorWidget .deleteGroupingFactorWidget,
+.deleteGroupLevelWidget {
+  float: none !important;
+}
+
+.timePointWidget .deleteTimePointWidget:focus,
+.groupingFactorWidget .deleteGroupingFactorWidget:focus {
+  outline: none;
+}
+
+#results.scrollable {
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+.nav-link.active {
+  font-weight: bold;
+}
+#resultsNav {
+  background-color: #e9ecef;
+  width: 99%;
+  padding: 5px;
+}
+#resultsNav .nav-link.selected {
+  background-color: #007bff;
+  color: #fff !important;
+}
+#resultsNav .nav-link:hover:not(.selected) {
+  color: #2f6f9f !important;
+} 
+
+.highlight {
+  background-color: transparent;
+  padding: 2px;
+  animation-name: highlight;
+  animation-duration: 3s;
+}
+
+@keyframes highlight {
+  from {background-color: #d1ecf1; border-color: #bee5eb;}
+  to {background-color: transparent; border-color: transparent; }
+}
+
+.preloader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(..\\images\\preloader.gif) center no-repeat #fff;
+}
+
+#completeCheck.complete:after {
+ content: '\2713';
+ margin: 0 5px 10px;
+ font-weight: bold;
+}
+
+#effectSizeTable td.disabled {
+  background-color: lightgray;
+}
+
+#newConfoundingVariableInput {
+  width: 350px;
+}
+
+.confoundingVarDelete {
+  cursor: pointer;
+  font-size: 1.2em;
+}
+.confoundingVarDelete:hover {
+  font-weight: bold;
+}

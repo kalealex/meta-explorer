@@ -1,0 +1,11 @@
+Package: ckm.meta.analysis
+Type: Package
+Title: CKM meta-analysis
+Version: 0.1.1
+Description: This package has R scripts for calculating effect size and running meta-analysis.
+License: Apache2
+LazyData: true
+Imports: 
+    tidyverse,
+    metafor,
+    jsonlite

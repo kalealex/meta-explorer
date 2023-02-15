@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <title>CKM - Visualization</title>
+
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <link rel="stylesheet" href="stylesheets/visualization.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="js/library/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src='https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js'></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="js/histogramDotplot.js"></script>
+  <script src="js/forestPlot.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-storage.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="opencpu/opencpu-0.4.js"></script>
+  <script src="js/init.js"></script>
+  <script>
+    function initialize() {
+      if (demoVersion) {
+        handleSignInAnonymously(function () {
+          $(".visualization-container").removeClass('block');
+          $('#biases').empty();
+          initForDemoVersion();
+        });
+      } else {
+        hideDemoWidgets();
+        // Listening for auth state changes.
+        firebase.auth().onAuthStateChanged(function (user) {
+          $('#biases').empty();
+          updateUserInfo(user);
+          if (user && !user.isAnonymous) {
+            $(".visualization-container").removeClass('block');
+          } else {
+            $('.preloader').fadeOut();
+            $(".visualization-container").addClass('block');
+          }
+        });
+
+        document.getElementById('sign-in-out').addEventListener('click', toggleSignIn, false);
+      }
+    }
+
+    window.onload = loadAndInit;
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="top"></div>
+    <!-- <div id="navigationTop">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="userInfo">
+          <a class="mx-2"><i class="fa fa-home" aria-hidden="true" title="Go to Study Papers"></i></a>
+          <span id="userName"></span>
+          <a id="sign-in-out" class="ml-2"></a>
+        </div>
+        </nav>
+      </div> -->
+
+    <div class="row flex-nowrap pt-5">
+      <!-- <div class="col-md-3 buttonSidebar block">
+          <h5>Potential Sources of Bias</h5>
+          <hr/>
+          <div id="biases"></div>
+        </div> 
+        <div class="col-md-9"> -->
+      <div class="col-md-12 mt-5" id="plotContainer">
+        <!-- <div class="buttonPanel">
+            <span id="plotLabel"></span>
+            <button id="toggleCharts" class="btn btn-outline-secondary block">Switch to Original Units</button>
+            <button id="sortBtn" class="btn btn-outline-secondary block">Sort by Effect Size</button>
+          </div>
+          <div id='plot'></div>
+          <div class="preloader"></div> -->
+      </div>
+    </div>
+
+  </div>
+
+
+</body>

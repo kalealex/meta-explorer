@@ -1,0 +1,117 @@
+.container {
+  max-width: none !important;
+}
+
+#navDiv {
+  margin-bottom: 10px;
+}
+#navDiv a {
+  margin-right: 25px;
+}
+#navDiv a.selected {
+  font-weight: bold;
+}
+
+#tablesDiv {
+  margin-bottom: 5px; 
+} 
+
+#tablesDiv input[type=text] {
+  width: 95%;
+}
+
+th {
+  vertical-align: middle !important;
+}
+
+th, td {
+  min-width: 180px;
+  max-width: 180px;
+}
+
+th span {
+  white-space: normal !important;
+  font-weight: normal;
+  font-size: small;
+}
+
+tr td {
+  font-size: smaller
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+td.highlight {
+  background: yellow;
+}
+tr:hover td.highlight {
+  background: #ffc107cc;
+}
+td.highlight.off {
+  background: transparent;
+}
+tr:hover td.highlight.off {
+  background: transparent
+}
+
+.preloader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url(..\\images\\preloader.gif) center no-repeat #fff;
+}
+
+.fa-pencil-square:hover,
+.fa-sticky-note-o {
+  cursor: pointer;
+}
+.fa-sticky-note-o {
+  background-color: yellow;
+}
+
+#metaAnalyzeBtn {
+  margin-left: -5px;
+}
+
+#studyGroupsDialog {
+  width: fit-content; 
+  margin: auto;
+  overflow: auto;
+}
+#studyGroupsDialog .modal-dialog {
+  max-width: none;
+
+}
+#studyGroupsDialog .deleteStudyGroupWidget {
+  cursor: pointer;
+}
+.studyGroup input {
+  font-weight: bold;
+  background-color: transparent;
+}
+.studyGroup .list-group {
+  min-height: 200px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  list-style-type: square !important; 
+  list-style-position: inside;
+}
+.studyGroup .highlight {
+  color:#007bff;
+}
+.studyGroup .list-group-item {
+  border: none;
+  display:list-item;
+}
+#AddStudyGroupButton {
+  max-height: 40px;
+}
+
+
+
+

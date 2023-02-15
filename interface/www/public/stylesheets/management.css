@@ -1,0 +1,41 @@
+#upload {
+  display: inline-block;
+}
+#upload input[type=file] {
+  display:none; 
+}
+#upload span {
+  cursor: pointer;
+}
+
+#managementTable tr.off {
+  background-color: #f7f7f9;
+  font-style: italic;
+  opacity: 0.5;
+} 
+#managementTable tr.off td {
+  padding: 0.5rem !important;
+  opacity: 0.5;
+}
+#managementTable tr.off a.extract {
+  display: none;
+}
+
+#managementTable .btn-success:not([disabled]):not(.disabled).active, 
+#managementTable .btn-success:not([disabled]):not(.disabled):active {
+  box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+}
+
+#managementTable .btn-secondary:not([disabled]):not(.disabled).active, 
+#managementTable .btn-secondary:not([disabled]):not(.disabled):active {
+  box-shadow: 0 0 0 0.2rem rgba(134,142,150,.5);
+}
+#managementTable .badge {
+  font-size: 85%;
+}
+#managementTable .btn-outline-danger {
+  line-height: 1.0;
+  vertical-align: top;
+}
+
+

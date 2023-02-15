@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <title>CKM - Triage</title>
+
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <link rel="stylesheet" href="stylesheets/triage.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css">
+    
+  <script src="js/library/jquery-3.4.1.min.js"></script>
+  <script src="js/library/popper-1.14.7.min.js"></script>
+  <script src="js/library/bootstrap-4.3.1.min.js"></script>
+  <script src="js/library/bootstrap-table-1.15.4.min.js"></script>
+  <script src="js/library/Sortable-1.14.0.min.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-storage.js"></script>  
+  <script src="/__/firebase/init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/triage.js"></script> 
+  <script>
+    function initialize() {
+      $('.fa-th-list').show();
+      if (demoVersion) {
+        handleSignInAnonymously(function() {
+          $("#navDiv").removeClass('block');
+	      $("#tablesDiv").removeClass('block');
+          initForDemoVersion();
+          initTriageView();
+          initHomeIcon();
+        });
+      } else {
+          hideDemoWidgets();
+	      // Listening for auth state changes.
+	      firebase.auth().onAuthStateChanged(function(user) {
+	         updateUserInfo(user);
+	         if (user && !user.isAnonymous ) {
+	            initTriageView();
+              initHomeIcon();
+	            $("#navDiv").removeClass('block');
+	            $("#tablesDiv").removeClass('block');
+	         } else {
+	            $('.preloader').fadeOut();
+	            $("#navDiv").addClass('block');
+	            $("#tablesDiv").addClass('block');
+	         }
+	      });
+	      
+	     document.getElementById('sign-in-out').addEventListener('click', toggleSignIn, false);  
+     }
+     
+    } 
+
+    function initHomeIcon() {
+      $('.fa-home').show();
+      $(".fa-home").click(function () {
+        window.location = window.location.origin;
+      });
+    }
+    
+    window.onload = loadAndInit;
+     
+    </script>
+  
+</head>
+<body>
+  <div class="preloader"></div>
+  <div class="container">
+      <div id="top"></div>
+      <div class="view-container">
+      <div id="navDiv">
+          <a href="#biasEvaluationTable">Risk of bias evaluation</a>
+          <a href="#measurementTable">Consistency of construct measurement</a>
+          <a href="#applicabilityTable">Applicability to target context</a>
+          <div class="form-check form-check-inline mr-2">
+            <input type="checkbox" id="autoHighlightingCheckbox" checked>
+            <label for="autoHighlightingCheckbox">Auto-highlighting</label>
+          </div>
+          <button id="showStudyGroupsBtn" class="btn btn-secondary mr-2">Study Groups</button>
+          <button id="metaAnalyzeBtn" class="btn btn-secondary">Meta-Analyze</button>
+      </div> 
+      <div id="tablesDiv">
+            <div id="biasEvaluationTableDiv"><table id="biasEvaluationTable"></table></div>
+            <div id="measurementTableDiv"><table id="measurementTable"></table></div>
+            <div id="applicabilityTableDiv"><table id="applicabilityTable"></table></div>
+      </div>
+      </div>
+  </div>
+
+  
+  <div id="notesModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Notes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control rounded-2" id="notes" rows="3" placeholder="Notes go here"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- study group Modal -->
+<div class="modal fade" id="studyGroupsDialog" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Study Groups</h5>
+      </div>
+      <div class="modal-body">
+        <div>Use drag and drop to move studies to a specific study group.
+          <button type="button" class="btn btn-outline-primary ml-3" id="AddStudyGroupButton">Add Study Group</button>
+        </div>
+        <div class="form-group d-flex flex-row" id="studyGroups">
+        </div>
+      </div> <!-- end of modal-body-->
+      
+      <div class="modal-footer">
+        <button type="button" id="saveStudyGroups" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div> <!-- end of modal-content-->
+  </div> <!-- end of modal-dialog-->
+</div> <!-- end of modal -->
+
+  
+  
+</body>
+</html>
+

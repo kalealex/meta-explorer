@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CKM</title>
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <link rel="stylesheet" href="stylesheets/scopingView.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css">
+
+  <script src="js/library/jquery-3.4.1.min.js"></script>
+  <script src="js/library/popper-1.14.7.min.js"></script>
+  <script src="js/library/bootstrap-4.3.1.min.js"></script>
+  <script src="js/library/bootstrap-table-1.15.4.min.js"></script>
+
+  <script src="/__/firebase/7.2.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-storage.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/scopingView.js"></script>
+  <script>
+
+    function initialize() {
+      if (demoVersion) {
+        handleSignInAnonymously(function () {
+          initForDemoVersion();
+          $(".view-container").removeClass('block');
+          loadUserData();
+          updateDemoWidgets(false);
+          initHomeIcon();
+        });
+      } else {
+        // Listening for auth state changes.
+        hideDemoWidgets();
+        initHomeIcon();
+        firebase.auth().onAuthStateChanged(function (user) {
+          updateUserInfo(user);
+          if (user && !user.isAnonymous) {
+            $(".view-container").removeClass('block');
+            loadUserData();
+          } else {
+            $(".view-container").addClass('block');
+            $(".preloader").fadeOut();
+          }
+        });
+
+        document.getElementById('sign-in-out').addEventListener('click', toggleSignIn, false);
+      }
+    }
+
+    function loadUserData() {
+      if (authCurrentUser()) {
+        var userRef = getCurrentUserRef();
+        if (userRef) {
+          userRef.get().then(function (user) {
+            var data = [];
+            if (user.exists) {
+              getCurrentQuestionRef().get().then(questionRef => displayData(questionRef.data()));
+              $(".preloader").fadeOut();
+            }
+          });
+        }
+      }
+    }
+
+    function initHomeIcon() {
+      $('.fa-home').show();
+      $(".fa-home").click(function () {
+        window.location = window.location.origin;
+      });
+    }
+
+    window.onload = loadAndInit;
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="top"></div>
+    <div class="preloader"></div>
+    <div class="view-container">
+      <h5 class="mb-4">Define research question:</h5>
+      <p class="ml-2"><label for="interventionQuestion">1. What intervention are you interested in measuring the effect
+          of?</label>
+        <input id="interventionQuestion" type="text" class="form-control input-md">
+
+      <p class="ml-2"><label for="outcomeQuestion">2. What outcome will you look at to measure the impact of the
+          intervention?</label>
+        <input id="outcomeQuestion" type="text" class="form-control input-md">
+
+      <p class="mt-5">Based on your prior knowledge of the outcome of interest, how would you categorize the expected
+        outcome
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="dichotomous" name="expectedOutcome">
+        <label class="form-check-label" for="dichotomous">Dichotomous (i.e., an event that did or did not
+          happen)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="continuous" name="expectedOutcome">
+        <label class="form-check-label" for="continuous">Continuous(i.e., a scale with more than two possible
+          values)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="correlation" name="expectedOutcome">
+        <label class="form-check-label" for="correlation">Correlation (i.e., coefficient from -1 to 1 describing a
+          bivariate relationship) </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="rate" name="expectedOutcome">
+        <label class="form-check-label" for="rate">Rate (i.e., events per unit of time)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="survival" name="expectedOutcome">
+        <label class="form-check-label" for="survival">Survival (i.e., amount of time before an event happens)</label>
+      </div>
+      <div class="alert alert-warning alert-dismissible" id="expectedOutcomeAlert" role="alert">
+        At this time, CKM does not support outcomes of interest that are measured using correlation, rate, or survival.
+        Please contact the tool's designers to request support for a specific type of outcome variable.
+      </div>
+
+      <p class="mt-5"><label> Please list criteria that studies must meet in order to be included in your
+          analysis.</label>
+      <div id="criteriaList" class="form-check"></div>
+      <button type="button" class="btn btn-outline-primary mt-2 ml-4" id="addCriteriaButton">Add Criteria</button>
+
+      <p class="mt-5"><label> Please list any confounding variables that you are concerned about. These are variables
+          (e.g., demographic attributes like age, race, sex, socioeconomic status, etc.)
+          which you expect to impact the outcome of interest and that you suspect may be related to the intervention of
+          interest.</label>
+      <div id="confoundingVariableList" class="form-check"></div>
+      <button type="button" class="btn btn-outline-primary mt-2 ml-4" id="addConfoundingVariable">Add Confounding
+        Variable</button>
+
+      <p class="mt-5"><label> Briefly describe the context in which you are trying to make an inference about the effect
+          of the intervention of interest on the outcome of interest.</label>
+        <textarea class="form-control rounded-0" id="contextInput" rows="3"></textarea>
+
+      <p class="mt-5"><label> Briefly describe the current practice that the intervention of interest would replace or
+          modify.</label>
+        <textarea class="form-control rounded-0" id="currentPractice" rows="3"></textarea>
+
+        <button id="managementBtn" class="btn btn-primary my-5 float-right" disabled>Review Management</button>
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>

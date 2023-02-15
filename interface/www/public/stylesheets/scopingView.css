@@ -1,0 +1,30 @@
+.criteriaWidget,
+.confoundingVariableaWidget {
+  margin-bottom:10px;
+}
+
+.criteriaWidget input,
+.confoundingVariableaWidget input {
+  width: 80%;
+  margin-right:10px;
+}
+
+.deleteCriteriaWidget,
+.deleteConfoundingVariableWidget {
+  float: none !important;
+}
+
+.deleteCriteriaWidget:focus,
+.deleteConfoundingVariableWidget:focus {
+  outline: none;
+}
+
+.preloader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(..\\images\\preloader.gif) center no-repeat #fff;
+}

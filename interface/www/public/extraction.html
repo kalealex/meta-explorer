@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <title>CKM - Evidence Extraction</title>
+
+  <link rel="stylesheet" href="stylesheets/extraction.css">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="stylesheets/toolbar.css"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/pdf_viewer.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css">
+
+  <script src="js/library/jquery-3.4.1.min.js"></script>
+  <script src="js/library/popper-1.14.7.min.js"></script>
+  <script src="js/library/bootstrap-4.3.1.min.js"></script>
+  <script src="js/library/bootstrap-table-1.15.4.min.js"></script>
+  <script src="js/library/split-1.5.11.min.js"></script>
+  
+  <script src="/__/firebase/7.2.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.2.0/firebase-storage.js"></script>  
+  <script src="/__/firebase/init.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    var currentDocId = '';
+    function getCurrentResult(resultIndex) {
+      return getCurrentUserDocRef().collection("results").doc("result-" + resultIndex);
+    }
+    
+    function writeData(key, value) {
+      if (authCurrentUser()) {
+        getCurrentUserDocRef().set({
+          [key]  : value
+        }, { merge: true });
+      }
+    }
+    
+    function writeResultData(resultIndex, key, value) {
+      if (authCurrentUser()) {
+        getCurrentResult(resultIndex).set({
+          [key]  : value
+        }, { merge: true });
+      }
+    }
+    
+    function readAnnotations() {
+      if (authCurrentUser()) {
+        return getCurrentUserDocRef().get().then(function(doc) {
+          var parsedAnnotations = [];
+          if (doc.exists) {
+             var annotations = doc.data()['annotations'];
+             if (annotations) {
+               parsedAnnotations = JSON.parse(annotations);
+             }
+          }
+          return Promise.resolve(parsedAnnotations);
+        });
+      } else {
+         return Promise.resolve([]);
+      }
+      
+    }
+    
+    
+    function initialize() {
+      $('.fa-th-list').show();
+      if (demoVersion) {
+         handleSignInAnonymously(function() {
+           initForDemoVersion();
+           loadView(function() {
+             loadCurrentDocData();
+             updateDemoWidgets(false);
+           });
+	     });
+      } else {
+	      // Listening for auth state changes.
+	      hideDemoWidgets();
+	      firebase.auth().onAuthStateChanged(function(user) {
+	        // need to reload these pages based on user sign-in status.  
+	        loadView( function() {
+	          updateUserInfo(user);
+	          if (user && !user.isAnonymous) {
+                loadCurrentDocData();
+	          } else {
+	            blockView();
+            }
+          });
+	      });
+	      
+	      document.getElementById('sign-in-out').addEventListener('click', toggleSignIn, false);
+	  }
+
+      window.addEventListener('storage', () => {
+         var newDocId = window.localStorage.getItem('documentId');
+         if (currentDocId != '' && currentDocId != newDocId) {
+              // reload the page with the documentId
+              location.reload();
+         }
+      });
+    } 
+    
+    function blockView() {
+      currentDocId = '';
+      $("#pdfFilePanel").addClass('block');
+      $("#extractionForm").addClass('block');
+      $("#evidenceExtractionButton").addClass('block');
+      $("#assessmentButton").addClass('block');
+      $("#codingManualButton").addClass('block');
+    }
+    
+    function removeBlock() {
+      $("#pdfFilePanel").removeClass('block');
+	    $("#extractionForm").removeClass('block');
+	    $("#evidenceExtractionButton").removeClass('block');
+	    $("#assessmentButton").removeClass('block');
+	    $("#codingManualButton").removeClass('block');
+    }
+    
+    function loadView(onAfterLoad) {
+      $(".doc-error").hide();      
+      $("#pdfFilePanel").load("pdf.html");
+      $("#extractionForm").load("extractionForm.html", function() {
+        onAfterLoad();
+      });
+    }
+    
+    function loadCurrentDocData() {
+      if (getCurrentDocId()) {
+        setResearchQuestion();
+        currentDocId = getCurrentDocId();
+        removeBlock();
+        // read data
+        readDocumentDataWithPromise(currentDocId).then( docData => displayDocData(docData) );
+      } else {
+        blockView();
+        $(".doc-error").show();
+        $(".preloader").fadeOut();
+      }
+    }
+    
+    window.onload = loadAndInit;
+    
+  </script>
+
+</head>
+<body>
+<div class="preloader"></div>
+<div id="container">
+    <div id="top"></div>
+    <div id="left">
+      <alert class='alert-warning doc-error'>No PDF document to load</alert>
+      <div id="pdfFilePanel"></div>
+    </div>
+    <div id="right">
+      <div id="rightPanel">
+      <div id="navigationTop">
+        <nav class="navbar navbar-expand-lg nav-light bg-light">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown" id="evidenceExtractionNavItem">
+        <a class="nav-link dropdown-toggle mr-3" href="#" id="evidenceExtractionButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Evidence Extraction</a>
+        <div class="dropdown-menu" aria-labelledby="evidenceExtractionButton" id="evidenceExtractionDropdown">
+        <div class="row">
+        <a class="dropdown-item col-sm-6" href="#studyLevelInformation"><b>Study-Level Information</b></a>
+        <a class="dropdown-item col-sm-6" href="#resultLevelInformation"><b>Result-Level Information</b></a>
+        </div>
+        <div class="row">
+        <a class="dropdown-item col-sm-6" href="#studyIdentity">Study Identify</a>
+        <a class="dropdown-item col-sm-6" href="#measurement">Measurement</a>
+        </div>
+        <div class="row">
+        <a class="dropdown-item col-sm-6" href="#studyContext">Study Context</a>
+        <a class="dropdown-item col-sm-6" href="#effectSize">Effect Size</a>
+        </div>
+        <div class="row">
+        <a class="dropdown-item col-sm-6" href="#participants">Participants</a>
+        <a class="dropdown-item col-sm-6" href="#reviewStatus"><b>Review Status</b></a>
+        </div>
+        </div>
+        </li>
+        <li class="nav-item dropdown" id="assessmentNavItem">
+        <a class="nav-link dropdown-toggle mr-3" href="#" id="assessmentButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quality Assessment</a>
+        <div class="dropdown-menu" aria-labelledby="assessmentButton">
+        <a class="dropdown-item" href="#riskOfBias"><b>Risk of Bias</b></a>
+        <a class="dropdown-item" href="#selectionBias">Selection Bias</a>
+        <a class="dropdown-item" href="#measurementIssues">Measurement Issues</a>
+        <a class="dropdown-item" href="#reportingBias">Reporting Bias</a>
+        <a class="dropdown-item" href="#applicability"><b>Applicability</b></a>
+        </div>
+        </li>
+        <li class="nav-item dropdown" id="codingManualNavItem">
+        <a class="nav-link dropdown-toggle mr-3" href="#" id="codingManualButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Coding Manual</a>
+        <div class="dropdown-menu" aria-labelledby="codingManualButton">
+        <a class="dropdown-item" href="#studyContextCodingManual">Study Context</a>
+        <a class="dropdown-item" href="#participantsCodingManual">Participants</a>
+        <a class="dropdown-item" href="#measurementCodingManual">Measurement</a>
+        <a class="dropdown-item" href="#effectSizeCodingManual">Effect Size</a>
+        <a class="dropdown-item" href="#riskOfBiasCodingManual">Risk of Bias</a> 
+        <a class="dropdown-item" href="#applicabilityCodingManual">Applicability</a>
+        </div>
+        </li>
+        </ul>
+        </nav>
+      </div>
+      <div id="extractionForm"></div>
+      </div>
+    </div> 
+    </div>
+</div>
+
+</body>
+</html>

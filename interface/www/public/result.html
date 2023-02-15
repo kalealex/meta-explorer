@@ -1,0 +1,370 @@
+<script src="js/result.js"></script>
+
+<div class="group">
+    <h5 class="mb-3" id="measurement">Measurement</h5>
+    <i class="ml-2 fa fa-lg fa-sticky-note-o" title="General Notes" data-toggle="collapse" data-target="#measurementNotes" aria-expanded="false" aria-controls="measurementNotes"></i>
+    <textarea class="collapse form-control rounded-2 notes" id="measurementNotes" rows="3" placeholder="General notes on Measurement go here"></textarea>
+    <label class="mb-3">Please use the following items to describe how the outcome of interest was defined and measured in the study 
+    (i.e., how the outcome of interest is <a href="https://en.wikipedia.org/wiki/Operationalization">operationalized</a>).</label>
+    
+    <div id="measurement_1_extraction">
+    <label for="independentVariable" >1. What was the independent variable in the study? We need a shorthand for the intervention of interest that was compared to a control condition or baseline.</label>
+    <div class="input-group">
+      <input list="independentVariables" id="independentVariable" type="text" class="form-control input-md" autocomplete="off"></input>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" id="independentVariables"></div>
+      </div>
+    </div> 
+    </div>
+    <br>
+    <div id="measurement_2_extraction">
+    <label for="howIndependentVariableDefined">2. How was the independent variable defined? Briefly describe how the author(s) implement the intervention and control conditions in the study.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_2_manual"/>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Applicability 3" target="applicability_3_assessment"></i>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Applicability 4" target="applicability_4_assessment"></i></label>
+    </label>
+    <textarea class="form-control rounded-0" id="howIndependentVariableDefined" rows="10"></textarea></div>
+    <br>
+    <div id="measurement_3_extraction">
+    <label>3. Was the intervention given to participants in the study for a specific duration or in a certain dose? 
+    </label>
+    <div class="form-check">
+         <input class="form-check-input" type="radio" value="noDurationOrDose" name="durationOrDose">
+         <label class="form-check-label" for="noDurationOrDose">No, duration or dose are not applicable.</label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="yesDurationOrDose" name="durationOrDose">
+         <label class="form-check-label" for="yesDurationOrDose">Yes</label>
+     </div>
+     <div class="row mt-1 ml-2" id="yesDurationOrDosePanel">
+       <div class="col-md-5"><label>Briefly describe the duration or dose:</label></div>
+       <div class="col-md-7"><input type="text" id="durationOrDoseInput" class="custom-input-text"></div>
+     </div>
+    </div>
+    <br>
+    <div id="measurement_4_extraction">
+    <label for="dependantVariable">4. What was the dependent variable in the study? We need a shorthand for the outcome of interest that was measured.
+    </label>
+    <div class="input-group">
+      <input list="dependantVariables" id="dependantVariable" type="text" class="form-control input-md" autocomplete="off"></input>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" id="dependantVariables"></div>
+      </div>
+    </div> 
+    </div>
+    <br>
+
+    <div id="measurement_5_extraction">
+    <label for="howDependantVariableDefined">5. How was the dependent variable defined? Briefly describe how the author(s) measure or observe the outcome of interest in the study.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_5_manual"/>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Measurement Issues 2" target="measurementIssues_2_assessment"></i>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Measurement Issues 3" target="measurementIssues_3_assessment"></i>
+    <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Applicability 5" target="applicability_5_assessment"></i>
+    </label>
+    <textarea class="form-control rounded-0" id="howDependantVariableDefined" rows="10"></textarea></div>
+    <br>
+    <div id="measurement_6_extraction">
+    <label class="mb-3">6. Please categorize the outcome of interest as one of the following.
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_6_manual"/></label>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="dichotomous" name="outcomeOfInterest">
+         <label class="form-check-label" for="dichotomous">Dichotomous (i.e., an event that did or did not happen)</label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="continuous" name="outcomeOfInterest">
+         <label class="form-check-label" for="continuous">Continuous(i.e., a scale with more than two possible values)</label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="correlation" name="outcomeOfInterest">
+         <label class="form-check-label" for="correlation">Correlation (i.e., coefficient from -1 to 1 describing a bivariate relationship) </label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="rate" name="outcomeOfInterest">
+         <label class="form-check-label" for="rate">Rate (i.e., events per unit of time)</label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="survival" name="outcomeOfInterest">
+         <label class="form-check-label" for="survival">Survival (i.e., amount of time before an event happens)</label>
+     </div>
+     <div class="alert alert-warning alert-dismissible" id="outcomeOfInterestAlert" role="alert">
+         At this time, CKM does not support outcomes of interest that are measured using correlation, rate, or survival. Please contact the tool's designers to request support for a specific type of outcome variable.
+     </div>
+    </div>
+    <br>
+    <div id="measurement_7_extraction">
+    <label class="mb-3">7. Were the outcome measurements for the intervention and control conditions compared <b>between-subjects</b>, 
+      such that each participant either in the intervention or the control condition, or <b>within-subjects</b>, 
+      such that each participant was in both the intervention or the control conditions at different times?
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_7_manual"/></label>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="betweenSubjects" name="betweenOrWithinSubjects">
+         <label class="form-check-label" for="betweenSubjects">The intervention and control conditions were compared <b>between-subjects.</b></label>
+     </div>
+     <div class="form-check">
+         <input class="form-check-input" type="radio" value="withinSubjects" name="betweenOrWithinSubjects">
+         <label class="form-check-label" for="withinSubjects">The intervention and control conditions were compared <b>within-subjects.</b></label>
+     </div>
+    </div>
+    <br>
+    <div id="measurement_8_extraction">
+    <label class="mb-3">8. What was the time schedule for measurement in the study? When were measures taken?
+    <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_8_manual"/></label>
+    <div class="form-check">
+         <input class="form-check-input" type="radio" value="onePointMeasurement" name="timeScheduleForMeasurement">
+         <label class="form-check-label" for="onePointMeasurement">The measurement was taken at <b>one point in time</b>.</label>
+         <div id="onePointMeasurementPanel">
+         <label class="mt-1">Do the authors report the point in time when the measurement was taken (e.g., duration after the intervention of interest)?</label>
+         <div class="subgroup">
+           <div class="form-check">
+           <input class="form-check-input" type="radio" value="notApplicable" name="onePointMeasurementReport">
+           <label class="form-check-label" for="notApplicable">Not applicable.</label>
+           </div>
+           <div class="form-check">
+           <input class="form-check-input" type="radio" value="no" name="onePointMeasurementReport">
+           <label class="form-check-label" for="no">No.</label>
+           </div>
+           <div class="form-check">
+           <input class="form-check-input" type="radio" value="yes" name="onePointMeasurementReport">
+           <label class="form-check-label" for="yes">Yes.</label>
+            <div class="row mt-3" id="yesPanel">
+            <div class="col-md-5"><label for="timePoint">Record the time:</label></div>
+            <div class="col-md-7"><input type="text" id="timePoint" class="custom-input-text"></div>
+            <div class="col-md-5"><label for="timePointUnit">What unit of time is reported?</label></div>
+            <div class="col-md-7"><input type="text" id="timePointUnit" class="custom-input-text"></div>
+           </div></div>
+         </div> <!-- end of subgroup-->
+         </div> <!-- end of onePointMeasurementPanel-->
+    </div>  <!-- end of form-check-->
+    <div class="form-check">
+         <input class="form-check-input" type="radio" value="multiplePointsMeasurement" name="timeScheduleForMeasurement">
+         <label class="form-check-label" for="multiplePointsMeasurement">The measurement was taken at <b>multiple points in time</b>.</label>
+         <div id="multiplePointsMeasurementPanel">
+         
+         <div class="row" id="multiplePointsInTimePanel">
+          <label class="mt-1">Which points in time or durations after the intervention were measured?</label>
+         <div id="timePointWidgetList"></div>
+         <button type="button" class="btn btn-outline-primary mt-2" id="AddTimePointBtn">Add Time Point</button>
+         </div><br>
+
+         <label class="mt-1">Do the authors aggregate measurements over time and present one overall measure, or do the authors report the measure at multiple durations after the intervention of interest?</label>
+         <div class="subgroup">
+         <div class="form-check">
+           <input class="form-check-input" type="radio" value="aggregatedOverTime" name="multiplePointsMeasurementReport">
+           <label class="form-check-label" for="aggregatedOverTime">The measurement is <b>aggregated over time.</b></label>
+         </div>
+          <div class="form-check">
+           <input class="form-check-input" type="radio" value="multiplePointsInTime" name="multiplePointsMeasurementReport">
+           <label class="form-check-label" for="multiplePointsInTime">The measurement is reported for <b>multiple points in time.</b></label>
+         </div>
+         </div>
+         </div>  
+         </div> 
+  </div>
+  <br>
+  <div id="measurement_9_extraction">
+  <label class="mb-3">9. Do the authors report this measure separately for different groups of participants (e.g., grouping their sample by demographics or some other factor)?
+  <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="measurement_9_manual"/></label>
+  <div class="form-check">
+       <input class="form-check-input" type="radio" value="groupEffectsNotReported" name="groupEffects">
+       <label class="form-check-label" for="groupEffectsNotReported">Group effects were <b>not reported</b>.</label>
+  </div>
+  <div class="form-check">
+       <input class="form-check-input" type="radio" value="groupEffectsReported" name="groupEffects">
+       <label class="form-check-label" for="groupEffectsReported">Group effects were <b>reported</b>.</label>
+       <div id="groupEffectsReportedPanel">
+             <label class="mt-1">The authors may have reported on more group comparisons than you want to include in your meta-analysis. Use your discretion. Which group-level effects are you interested in documenting and potentially including in your meta-analysis?</label>
+             <div class="subgroup">
+             <div class="form-check">
+              <input class="form-check-input" type="radio" value="aggregatedAcrossGroups" name="groupEffectsInterest">
+              <label class="form-check-label" for="aggregatedAcrossGroups">I am only interested in the effect <b>aggregated across groups.</b></label>
+            </div>
+             <div class="form-check">
+              <input class="form-check-input" type="radio" value="differentGroups" name="groupEffectsInterest">
+              <label class="form-check-label" for="differentGroups">I am interested in the effect in <b>different groups</b></label>
+            </div>
+            <div id="differentGroupsPanel">
+            <label class="ml-2">List the grouping factors that are of interest (e.g., gender) and the levels of the factor:
+            <div id="groupingFactorWidgetList"></div>
+            <button type="button" class="btn btn-outline-primary mt-2" id="AddGroupingFactorBtn">Add Grouping Factor</button>
+            </div>
+            </div>
+       </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="group">
+    <h5 class="mb-3" id="effectSize">Effect Size</h5>
+    <i class="ml-2 fa fa-lg fa-sticky-note-o" title="General Notes" data-toggle="collapse" data-target="#effectSizeNotes" aria-expanded="false" aria-controls="effectSizeNotes"></i>
+    <textarea class="collapse form-control rounded-2 notes" id="effectSizeNotes" rows="3" placeholder="General notes on Effect Size go here"></textarea>
+    <i><label class="mb-3">Please use the following items to capture information reported about estimates of <a href="https://www.statisticssolutions.com/statistical-analyses-effect-size/">effect size</a>. 
+    You will almost certainly find this information in the Results section.</label></i>
+     <div id="effectSize_1_extraction">
+     <label class="mb-3">1. Do the authors report sample size separately for the intervention and control groups, or do they only report overall sample size for the whole study?</label>
+     <div class="form-check mb-3">
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="separateSampleSize" name="sampleSizeReport">
+         <label class="form-check-label" for="separateSampleSize">Sample size reported separately for intervention and control groups.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="overallSampleSize" name="sampleSizeReport">
+         <label class="form-check-label" for="overallSampleSize">Only overall sample size reported (assume a balanced design).</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="neitherSampleSize" name="sampleSizeReport">
+         <label class="form-check-label" for="neitherSampleSize">Neither</label>
+         </div>
+         <div class="alert alert-warning alert-dismissible" id="neitherSampleSizeAlert" role="alert">
+            Without knowing sample size, we cannot calculate effect size.
+          </div>
+     </div>
+     </div>
+     <div id="effectSize_2_dichotomous_extraction">
+     <label class="mb-3"><span class="number">2</span>. Do the authors report the count or proportion of individuals who experience the outcome of interest in the intervention and control groups?</label>
+     <div class="form-check mb-3">
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="count" name="countOrProportion">
+         <label class="form-check-label" for="count">Count.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="proportion" name="countOrProportion">
+         <label class="form-check-label" for="proportion">Proportion.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="neitherCountOrProportion" name="countOrProportion">
+         <label class="form-check-label" for="neitherCountOrProportion">Neither</label>
+         </div>
+         <div class="alert alert-warning alert-dismissible" id="neitherCountOrProportionAlert" role="alert">
+            Without knowing the count or proportion of participants in the intervention and control groups who experience the outcome of interest, 
+            we cannot calculate effect size for a dichotomous outcome.
+         </div>
+     </div>
+     </div>
+     <div id="effectSize_2_continous_extraction">
+     <label class="mb-3"><span class="number">2</span>. Do the authors report the mean outcome separately for the intervention and control groups, or do they report the mean difference between the intervention and control groups?
+</label>
+     <div class="form-check mb-3">
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="meanOutcome" name="meanReport">
+         <label class="form-check-label" for="meanOutcome">Mean outcome for intervention and control groups.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="meanDiff" name="meanReport">
+         <label class="form-check-label" for="meanDiff">Mean difference between intervention and control groups.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="neitherMeanReport" name="meanReport">
+         <label class="form-check-label" for="neitherMeanReport">Neither</label>
+         </div>
+         <div class="alert alert-warning alert-dismissible" id="neitherMeanReportAlert" role="alert">
+            Without knowing the mean difference between intervention and control groups, we cannot calculate effect size for a continuous outcome.
+         </div>
+     </div>
+     </div>
+     <div id="effectSize_4_extraction">
+     <label class="mb-3"><span class="number">3</span>. How do the authors report the <a href="https://explorable.com/statistical-reliability">reliability</a> of the estimated difference between the intervention and control groups? 
+     Please check one of the following.
+     <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="effectSize_4_manual"/></label>
+       <div class="form-check mb-3">
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="separatedStandardDeviations" name="reliabilityReport">
+         <label class="form-check-label" for="separatedStandardDeviations">Standard deviations reported separately for intervention and control groups.</label>
+         </div>
+         <div class="form-check">
+          <input class="form-check-input" type="radio" value="separatedStandardErrors" name="reliabilityReport">
+          <label class="form-check-label" for="separatedStandardErrors">Standard errors reported separately for intervention and control groups</label>
+          </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="pooledStandardDeviations" name="reliabilityReport">
+         <label class="form-check-label" for="pooledStandardDeviations">Pooled Standard deviation.</label>
+         </div>
+         <div class="form-check" id="standardErrorPanel">
+         <input class="form-check-input" type="radio" value="standardError" name="reliabilityReport">
+         <label class="form-check-label" for="standardError">Standard error.</label>
+         </div>
+         <div class="form-check" id="residualStandardError">
+         <input class="form-check-input" type="radio" value="residualStandardError" name="reliabilityReport">
+         <label class="form-check-label" for="residualStandardError">Residual Standard error.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="tValue" name="reliabilityReport">
+         <label class="form-check-label" for="tValue">t-value.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="fValue" name="reliabilityReport">
+         <label class="form-check-label" for="fValue">F-value.</label>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="pValue" name="reliabilityReport">
+         <label class="form-check-label" for="pValue">p-value</label>
+            <div class="m-1" id="pValuePanel">
+             <label>Was this a 1- or 2-tailed test?</label>
+             <div class="form-check mb-3">
+             <div class="form-check">
+	         <input class="form-check-input" type="radio" value="1-tailed" name="pValueTailed">
+	         <label class="form-check-label" for="1-tailed">1-tailed test.</label>
+	         </div>
+	         <div class="form-check">
+	         <input class="form-check-input" type="radio" value="2-tailed" name="pValueTailed">
+	         <label class="form-check-label" for="2-tailed">2-tailed test.</label>
+	         </div>
+             </div>	       
+            </div>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="confidenceInterval" name="reliabilityReport">
+         <label class="form-check-label" for="confidenceInterval">Confidence Interval (CI).</label>
+         <div class="row m-1" id="confidenceIntervalPanel">
+         <label for="confidenceLevelValue">What is the confidence level?</label>
+         <input type="text" id="confidenceLevelValue" class="custom-input-text w-25 ml-3">%
+         </div>
+         </div>
+         <div class="form-check">
+         <input class="form-check-input" type="radio" value="none" name="reliabilityReport">
+         <label class="form-check-label" for="none">None of the above</label>
+         </div>
+         <div class="alert alert-warning alert-dismissible" id="noneReliabilityReportError" role="alert">
+            Without one of the above measures of reliability, we cannot calculate effect size for a continuous outcome.
+         </div>
+       </div>
+     </div>
+     
+     <div id="effectSize_5_extraction">
+     <label class="mb-3"><span class="number">5</span>. Above you indicated that the study authors <a href="https://stats.stackexchange.com/questions/3944/explain-model-adjustment-in-plain-english">adjusted for covariates</a> in a statistical model. 
+     What name do the authors use for this model?
+     </label>
+     <div class="alert alert-warning" role="alert">At this time, CKM does not support statistical models that are not some form of linear or logistic regression. 
+       This follows from the limitation that CKM only handles continuous and dichotomous outcomes.</div>
+     <textarea class="form-control rounded-0" id="nameForAdjustedForCovariates" rows="3"></textarea>
+     <br>
+     </div>
+     
+     <div id="effectSize_6_extraction">
+     <label class="mb-3"><span class="number">6</span>. If the study authors adjusted their effect size estimate for <a href="https://www.statisticshowto.datasciencecentral.com/covariate/">covariates</a>, 
+     either by <a href="https://www.alleydog.com/glossary/definition.php?term=Matched+Group+Design">matching intervention and control groups</a> on 
+     confounding variables or by <a href="https://stats.stackexchange.com/questions/3944/explain-model-adjustment-in-plain-english">including covariates in a statistical model</a>,
+      what covariates did they adjust for? Please check any of the following that apply, and add any variables in the adjustment set that are not already listed below.
+     <i class="fa fa-lg fa-question-circle ml-3" title="Coding Manual" target="effectSize_6_manual"/>
+     <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Selection Bias 3" target="selectionBias_3_assessment"></i></label>
+     <div id="covariatesList"></div>
+     <div class="d-flex flex-row"><input type="text" class="custom-input-text" id="newConfoundingVariableInput" autocomplete="off" value="">
+          <button type="button" class="btn btn-outline-primary ml-2" id="addConfoundingVariableBtn">Add variable</button>
+     </div>
+     <br>
+     </div>
+     
+     <div id="effectSize_7_extraction">
+     <label class="mb-3">Use this table to document the numerical effect size information reported in the written report. Note that the study authors may report more comparisons than the ones you will include in your meta-analysis. You will only be able to aggregate effect sizes from these comparisons if the same comparison is made in multiple studies. <b>To save time, you should only fill in numbers which seem necessary to answer your <a href="#researchQuestion">research question</a></b>.
+     <i class="fa fa-lg fa-list-alt" title="Quality Assessment: Reporting Bias 1" target="reportingBias_1_assessment"></i></label>
+     <table id="effectSizeTable"/>
+     <button type="button" class="btn btn-outline-primary mt-2" id="addDataBtn">Add Data</button>
+     </div>
+     <div id="reviewStatus" class="d-flex justify-content-center"><button class="btn btn-success btn-lg mt-4 mb-2" disabled id="completeCheck">Mark Review as Complete</button></div>
+     <div id="warningDiv"></div>
+     
+  </div>
+</div>
+
+  
